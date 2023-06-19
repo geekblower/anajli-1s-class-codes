@@ -1,187 +1,268 @@
 #include <iostream>
 #include <string.h>
+#include <conio.h>
+
 using namespace std;
-       
-       string arr1[20],arr2[20],arr3[20],arr4[20],arr5[20];
-       int total=0;
 
-void enter() {
-           int choice;
-           cout<<"How many students do you want to enter :"<<endl;
-           cin>>choice;
-           total = total + choice;
-           if(total == 0) {
-               for(int i = 0; i < choice; i++) {
-                    cout<<"Enter data of student :" <<i+1<<endl;
-                    cout<<"Enter name:"<<endl;
-                    cin>>arr1[i];
-                    cout<<"Enter roll no:" <<endl;
-                    cin>>arr2[i];
-                    cout<<"Enter course:" <<endl;
-                    cin>>arr3[i];
-                    cout<<"Enter class:" <<endl;
-                    cin>>arr4[i];
-                    cout<<"Enter contact no:" <<endl;
-                    cin>>arr5[i];
-               }
-                }
-           else {
-                for(int i = total; i < total + choice; i++) {
-                    cout<<"Enter data of student :" <<i+1<<endl;
-                    cout<<"Enter name:"<<endl;
-                    cin>>arr1[i];
-                    cout<<"Enter roll no:" <<endl;
-                    cin>>arr2[i];
-                    cout<<"Enter course:" <<endl;
-                    cin>>arr3[i];
-                    cout<<"Enter class:" <<endl;
-                    cin>>arr4[i];
-                    cout<<"Enter contact no:" <<endl;
-                    cin>>arr5[i];
-               }
-           }
+class Std
+{
+public:
+	string Name;
+	int Roll;
+	string Course;
+	string Class;
+	string Contact;
+
+	static int Tot_Count;
+};
+
+Std Student[20];
+int Std::Tot_Count = 0;
+
+void Input_Records()
+{
+	int choice;
+	cout << "How many students do you want to enter : ";
+	cin >> choice;
+
+	if (Std::Tot_Count == 0)
+	{
+		for (int i = 0; i < choice; i++)
+		{
+			cout << "\nEnter data of student : " << i + 1 << endl;
+			cout << "\t\tEnter name : ";
+			cin >> Student[i].Name;
+
+			cout << "\t\tEnter roll no : ";
+			cin >> Student[i].Roll;
+
+			cout << "\t\tEnter course : ";
+			cin >> Student[i].Course;
+
+			cout << "\t\tEnter class : ";
+			cin >> Student[i].Class;
+
+			cout << "\t\tEnter contact no : ";
+			cin >> Student[i].Contact;
+		}
+	}
+	else
+	{
+		for (int i = Std::Tot_Count; i < Std::Tot_Count + choice; i++)
+		{
+			cout << "Enter data of student : " << i + 1 << endl;
+			cout << "\t\tEnter name : ";
+			cin >> Student[i].Name;
+
+			cout << "\t\tEnter roll no : ";
+			cin >> Student[i].Roll;
+
+			cout << "\t\tEnter course : ";
+			cin >> Student[i].Course;
+
+			cout << "\t\tEnter class : ";
+			cin >> Student[i].Class;
+
+			cout << "\t\tEnter contact no : ";
+			cin >> Student[i].Contact;
+		}
+	}
+
+	Std::Tot_Count = Std::Tot_Count + choice;
 }
 
-void show() {
-         if(total ==0) {
-          cout<<"No data is entered!" <<endl;
-         }
-        else {
-          for(int i = 0; i < total; i++) {
-               cout<<"Data of students :" <<i+1<<endl;
-               cout<<"Name :"<<arr1[i]<<endl;
-               cout<<"Roll no :"<<arr2[i]<<endl;
-               cout<<"course :"<<arr3[i]<<endl;
-               cout<<"class :"<<arr4[i]<<endl;
-               cout<<"contact no. :"<<arr5[i]<<endl;
-          }
-        }
+void Show_Records()
+{
+	if (Std::Tot_Count == 0)
+	{
+		cout << "No data is entered!" << endl;
+	}
+	else
+	{
+		cout << "\n\t\t==================================================";
+		cout << "\n\t\t                 STUDENT DATABASE";
+		cout << "\n\t\t--------------------------------------------------";
+		cout << "\n\t\tNAME      ROLL      COURSE      CLASS      CONTACT";
+		cout << "\n\t\t--------------------------------------------------";
+
+		for (int i = 0; i < Std::Tot_Count; i++)
+		{
+			if (Student[i].Roll == -1)
+			{
+				continue;
+			}
+
+			cout << "\n\t\t";
+			cout << Student[i].Name << "     " << Student[i].Roll << "       ";
+			cout << Student[i].Course << "       " << Student[i].Class << "      ";
+			cout << Student[i].Contact;
+		}
+
+		cout << "\n\t\t--------------------------------------------------";
+		cout << "\n\t\t       Press any key to Continue....";
+		cout << "\n\t\t==================================================\n";
+		getch();
+	}
 }
 
-void update() {
-          string rollno;
-          cout<<"Enter roll no. of student :" <<endl;
-          cin>>rollno;
-          for (int i = 0; i < total; i++) {
-               if(rollno == arr2[i]) {
-                   if(total == 0) {
-                    cout<<"Previous data :" <<endl<<endl;
-                     cout<<"Name :"<<arr1[i]<<endl;
-                     cout<<"Roll no :"<<arr2[i]<<endl;
-                     cout<<"course :"<<arr3[i]<<endl;
-                     cout<<"class :"<<arr4[i]<<endl;
-                     cout<<"contact no. :"<<arr5[i]<<endl;
-                     cout<<"Enter new data :" <<endl;
-                    cout<<"Enter name:"<<endl;
-                    cin>>arr1[i];
-                    cout<<"Enter roll no:" <<endl;
-                    cin>>arr2[i];
-                    cout<<"Enter course:" <<endl;
-                    cin>>arr3[i];
-                    cout<<"Enter class:" <<endl;
-                    cin>>arr4[i];
-                    cout<<"Enter contact no:" <<endl;
-                    cin>>arr5[i];
-                   }
-               }
-          } 
+void Update_Record()
+{
+	int RollNo;
+	cout << "Enter roll no. of student : " << endl;
+	cin >> RollNo;
+
+	for (int i = 0; i < Std::Tot_Count; i++)
+	{
+		if (RollNo == Student[i].Roll)
+		{
+			cout << "Previous data : " << endl
+				 << endl;
+			cout << "Name : " << Student[i].Name << endl;
+			cout << "Roll no : " << Student[i].Roll << endl;
+			cout << "Course : " << Student[i].Course << endl;
+			cout << "Class : " << Student[i].Class << endl;
+			cout << "Contact no. : " << Student[i].Contact << endl;
+
+			cout << "Enter new data : " << endl;
+			cout << "Enter name : ";
+			cin >> Student[i].Name;
+
+			cout << "Enter roll no : ";
+			cin >> Student[i].Roll;
+
+			cout << "Enter course : ";
+			cin >> Student[i].Course;
+
+			cout << "Enter class : ";
+			cin >> Student[i].Class;
+
+			cout << "Enter contact no : ";
+			cin >> Student[i].Contact;
+		}
+	}
 }
 
-void search() {
-       if(total == 0) {
-          cout<<"No data found!"<<endl;
-       }
-       else {
-          string rollno;
-          cout<<"Enter roll no of student you want to search :"<<endl;
-          cin>>rollno;
-          for(int i = 0; i < total; i++) {
-              if(rollno == arr2[i]) {
-               cout<<"Data of students :" <<i+1 <<endl;
-               cout<<"Name :"<<arr1[i]<<endl;
-               cout<<"Roll no :"<<arr2[i]<<endl;
-               cout<<"course :"<<arr3[i]<<endl;
-               cout<<"class :"<<arr4[i]<<endl;
-               cout<<"contact no. :"<<arr5[i]<<endl;
-              }
-          }
-       }
+void Search_Record()
+{
+	if (Std::Tot_Count == 0)
+	{
+		cout << "No data found!" << endl;
+	}
+	else
+	{
+		int RollNo;
+		cout << "Enter roll no of student you want to Search_Record : " << endl;
+		cin >> RollNo;
+		for (int i = 0; i < Std::Tot_Count; i++)
+		{
+			if (RollNo == Student[i].Roll)
+			{
+				cout << "Data of student : " << i + 1 << endl;
+				cout << "Name : " << Student[i].Name << endl;
+				cout << "Roll no : " << Student[i].Roll << endl;
+				cout << "Course : " << Student[i].Course << endl;
+				cout << "Class : " << Student[i].Class << endl;
+				cout << "Contact no. : " << Student[i].Contact << endl;
+			}
+		}
+	}
 }
 
-void deleterecord() {
-              if(total == 0) {
-                  cout<<"No data is entered!" <<endl;
-              }
-              else {
-                int a;
-                cout<<"press 1 to delete all records" <<endl;
-                cout<<"press 2 to delete specific record" <<endl;
-                cin>>a;
+void Delete_Record()
+{
+	if (Std::Tot_Count == 0)
+	{
+		cout << "No data is entered!" << endl;
+	}
+	else
+	{
+		int a;
+		cout << "Press 1 to delete all records" << endl;
+		cout << "Press 2 to delete specific record" << endl;
+		cin >> a;
 
-                if(a == 1){
-                    total = 0;
-                    cout<<"All record is deleted!"<<endl;
-                }
-                else if(a == 2) {
-                     string rollno;
-                     cout<<"Enter the roll no which you want to delete :" <<endl;
-                     cin>>rollno;
+		if (a == 1)
+		{
+			Std::Tot_Count = 0;
+			cout << "All records are deleted!" << endl;
+		}
+		else if (a == 2)
+		{
+			int RollNo;
+			cout << "Enter the roll no which you want to delete : " << endl;
+			cin >> RollNo;
 
-                     for(int i = 0; i < total; i++) {
-                         if(rollno == arr2[i]) {
-                              for(int j = i; j < total; j++) {
-                                   arr1[j] = arr1[j+1];
-                                   arr2[j] = arr2[j+1];
-                                   arr3[j] = arr3[j+1];
-                                   arr4[j] = arr4[j+1];
-                                   arr5[j] = arr5[j+1];
-                              }
-                              total--;
-                              cout<<"Your required record is deleted!" <<endl;
-                         }
-                     }
-                }
-              
-       else {
-          cout<<"Invalid input!"<<endl;
-       }              
- }             
+			for (int i = 0; i < Std::Tot_Count; i++)
+			{
+				if (RollNo == Student[i].Roll)
+				{
+					Student[i].Name = "";
+					Student[i].Roll = -1;
+					Student[i].Course = "";
+					Student[i].Class = "";
+					Student[i].Contact = "";
+				}
+
+				cout << "Your required record is deleted!" << endl;
+			}
+		}
+		else
+		{
+			cout << "Invalid input!" << endl;
+		}
+	}
 }
 
- int main() {
-       int value;
-       while (true) {
-            cout <<"press 1 to enter data :" << endl;
-            cout <<"press 2 to show data :" << endl;
-            cout <<"press 3 to update data :" <<endl;
-            cout <<"press 4 to search data :" <<endl;
-            cout <<"press 5 to delete data :" <<endl;
-            cout <<"press 6 to exit :" << endl;
-            cin >>value;
-     switch(value) {
-          case 1:
-               enter();
-               break;
-          case 2:
-               show();
-               break;
-          case 3:
-               update();
-               break;
-          case 4:
-               search();
-               break;
-          case 5:
-               deleterecord();
-               break;
-          case 6:
-               exit(0);
-               break;
-          default :
-               cout <<"Invalid case!" << endl;
-               break;
-     }
-  }
-       return 0;
+int main()
+{
+	int value;
+
+	do
+	{
+		cout << "\n\t\t***************************************************";
+		cout << "\n\t\t                   MAIN MENU";
+		cout << "\n\t\t***************************************************";
+		cout << "\n\t\t               [1] Enter Data";
+		cout << "\n\t\t               [2] Show Data";
+		cout << "\n\t\t               [3] Update Data";
+		cout << "\n\t\t               [4] Search Data";
+		cout << "\n\t\t               [5] Delete Data";
+		cout << "\n\t\t               [6] Exit";
+		cout << "\n\t\t***************************************************";
+
+		cout << "\n\n\t\t   Enter Your Choice : ";
+		cin >> value;
+
+		switch (value)
+		{
+		case 1:
+			Input_Records();
+			break;
+
+		case 2:
+			Show_Records();
+			break;
+
+		case 3:
+			Update_Record();
+			break;
+
+		case 4:
+			Search_Record();
+			break;
+
+		case 5:
+			Delete_Record();
+			break;
+
+		case 6:
+			break;
+
+		default:
+			cout << "Invalid case!" << endl;
+			break;
+		}
+	} while (value != 6);
+
+	return 0;
 }
- 
